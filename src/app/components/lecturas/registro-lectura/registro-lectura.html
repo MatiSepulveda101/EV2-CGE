@@ -1,0 +1,56 @@
+<div class="container py-3">
+  <h2>Registrar Nueva Lectura</h2>
+
+  <div class="card mt-3">
+    <div class="card-body">
+      <form (ngSubmit)="guardarLectura()">
+        <div class="row g-3">
+
+          <!-- Medidor -->
+          <div class="col-sm-12 col-md-6">
+            <label class="form-label">Medidor</label>
+            <select class="form-select" [(ngModel)]="lectura.id_medidor" name="medidor" required>
+              <option [value]="0" disabled>Seleccione un medidor</option>
+              <option *ngFor="let m of medidores" [value]="m.id_medidor">
+                {{ m.id_medidor }} - {{ m.nombre_cliente }}
+              </option>
+            </select>
+          </div>
+
+          <!-- Año -->
+          <div class="col-sm-6 col-md-3">
+            <label class="form-label">Año</label>
+            <input type="number" class="form-control" [(ngModel)]="lectura.anio" name="anio" required min="2000" max="2100">
+          </div>
+
+          <!-- Mes -->
+          <div class="col-sm-6 col-md-3">
+            <label class="form-label">Mes</label>
+            <select class="form-select" [(ngModel)]="lectura.mes" name="mes" required>
+              <option *ngFor="let m of [1,2,3,4,5,6,7,8,9,10,11,12]" [value]="m">{{ m }}</option>
+            </select>
+          </div>
+
+          <!-- Lectura kWh -->
+          <div class="col-sm-12 col-md-6">
+            <label class="form-label">Lectura kWh</label>
+            <input type="number" class="form-control" [(ngModel)]="lectura.lectura_kwh" name="lectura_kwh" required min="0">
+          </div>
+
+          <!-- Observación -->
+          <div class="col-sm-12 col-md-6">
+            <label class="form-label">Observación</label>
+            <input type="text" class="form-control" [(ngModel)]="lectura.observacion" name="observacion">
+          </div>
+
+        </div>
+
+        <!-- Botones -->
+        <div class="mt-4 d-flex gap-2 flex-wrap">
+          <button type="submit" class="btn btn-success">Guardar</button>
+          <button type="button" class="btn btn-secondary" (click)="cancelar()">Cancelar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

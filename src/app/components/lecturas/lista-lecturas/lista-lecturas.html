@@ -1,0 +1,63 @@
+<div class="container py-3">
+  <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+    <h2>Lecturas</h2>
+    <button class="btn btn-primary" (click)="registrarLectura()">Registrar nueva lectura</button>
+  </div>
+
+  <div class="row mb-3 g-2">
+    <div class="col-12 col-md-4">
+      <label for="filtroMedidor" class="form-label">Medidor</label>
+      <select id="filtroMedidor" class="form-select" [(ngModel)]="filtroMedidor">
+        <option [value]="0">Todos</option>
+        <option *ngFor="let m of medidores" [value]="m.id_medidor">{{ m.id_medidor }}</option>
+      </select>
+    </div>
+
+    <div class="col-6 col-md-4">
+      <label for="filtroAnio" class="form-label">Año</label>
+      <input id="filtroAnio" type="number" class="form-control" [(ngModel)]="filtroAnio">
+    </div>
+
+    <div class="col-6 col-md-4">
+      <label for="filtroMes" class="form-label">Mes</label>
+      <select id="filtroMes" class="form-select" [(ngModel)]="filtroMes">
+        <option *ngFor="let m of [1,2,3,4,5,6,7,8,9,10,11,12]" [value]="m">{{ m }}</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <button class="btn btn-success" (click)="aplicarFiltros()">Filtrar</button>
+  </div>
+
+  <div class="table-responsive">
+    <table class="table table-striped table-hover">
+      <thead class="table-dark">
+      <tr>
+        <th>#</th>
+        <th>ID Lectura</th>
+        <th>ID Medidor</th>
+        <th>Año</th>
+        <th>Mes</th>
+        <th>Lectura kWh</th>
+        <th>Consumo kWh</th>
+        <th>Observación</th>
+        <th>Creado</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let lectura of lecturas; let i = index">
+        <td>{{ i + 1 }}</td>
+        <td>{{ lectura.id_lectura }}</td>
+        <td>{{ lectura.id_medidor }}</td>
+        <td>{{ lectura.anio }}</td>
+        <td>{{ lectura.mes }}</td>
+        <td>{{ lectura.lectura_kwh }}</td>
+        <td>{{ calcularConsumo(lectura) }}</td>
+        <td>{{ lectura.observacion || '-' }}</td>
+        <td>{{ lectura.created_at | date:'short' }}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,82 @@
+<form (ngSubmit)="onSubmit()">
+  <div class="card-body">
+    <div class="form-group">
+      <label for="rut">RUT</label>
+      <input
+        type="text"
+        id="rut"
+        name="rut"
+        class="form-control"
+        [(ngModel)]="cliente.rut"
+        placeholder="Ej: 12.345.678-9"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="nombre_razon">Nombre o Razón Social</label>
+      <input
+        type="text"
+        id="nombre_razon"
+        name="nombre_razon"
+        class="form-control"
+        [(ngModel)]="cliente.nombre_razon"
+        placeholder="Ej: Juan Pérez o Empresa SPA"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="email_contacto">Correo Electrónico</label>
+      <input
+        type="email"
+        id="email_contacto"
+        name="email_contacto"
+        class="form-control"
+        [(ngModel)]="cliente.email_contacto"
+        placeholder="correo@ejemplo.com"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="telefono">Teléfono</label>
+      <input
+        type="text"
+        id="telefono"
+        name="telefono"
+        class="form-control"
+        [(ngModel)]="cliente.telefono"
+        placeholder="+56 9 1234 5678"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="direccion_facturacion">Dirección de Facturación</label>
+      <input
+        type="text"
+        id="direccion_facturacion"
+        name="direccion_facturacion"
+        class="form-control"
+        [(ngModel)]="cliente.direccion_facturacion"
+        placeholder="Ej: Av. Principal 123, Santiago"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="estado">Estado</label>
+      <select
+        id="estado"
+        name="estado"
+        class="form-control"
+        [(ngModel)]="cliente.estado"
+      >
+        <option value="activo">Activo</option>
+        <option value="inactivo">Inactivo</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="card-footer">
+    <button type="submit" class="btn btn-primary">
+      Guardar Cliente
+    </button>
+  </div>
+</form>

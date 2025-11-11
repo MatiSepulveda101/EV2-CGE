@@ -1,0 +1,106 @@
+<div class="content-wrapper">
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1><i class="fas fa-users"></i> Listado de Clientes</h1>
+        </div>
+        <div class="col-sm-6 text-right">
+          <button class="btn btn-primary btn-sm ml-2" (click)="crearCliente()">
+            <i class="fas fa-plus"></i> Nuevo Cliente
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="content">
+    <div class="container-fluid">
+      <div class="card card-outline card-primary">
+        <div class="card-header">
+          <div class="d-flex justify-content-between align-items-center">
+            <h3 class="card-title">Clientes registrados</h3>
+            <input
+              type="text"
+              class="form-control form-control-sm w-auto"
+              placeholder="Buscar por RUT o nombre"
+              [(ngModel)]="terminoBusqueda"
+              (ngModelChange)="onBuscarCambio()"
+            />
+          </div>
+        </div>
+
+        <div class="card-body">
+          <div *ngIf="cargando()">Cargando clientes...</div>
+          <div *ngIf="error()">{{ error() }}</div>
+
+          <div *ngIf="!cargando() && !error() && buscarClientes().length > 0">
+            <div class="table-responsive">
+              <table class="table table-bordered table-hover table-striped">
+                <thead class="thead-dark">
+                <tr>
+                  <th>ID</th>
+                  <th>RUT</th>
+                  <th>Nombre / Razón Social</th>
+                  <th>Correo</th>
+                  <th>Teléfono</th>
+                  <th>Dirección</th>
+                  <th>Estado</th>
+                  <th>Acciones</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let cliente of buscarClientes()">
+                  <td>{{ cliente.id_cliente }}</td>
+                  <td>{{ cliente.rut }}</td>
+                  <td>{{ cliente.nombre_razon }}</td>
+                  <td>{{ cliente.email_contacto }}</td>
+                  <td>{{ cliente.telefono }}</td>
+                  <td>{{ cliente.direccion_facturacion }}</td>
+                  <td>
+                      <span class="badge"
+                            [class.badge-success]="cliente.estado === 'activo'"
+                            [class.badge-secondary]="cliente.estado === 'inactivo'">
+                        {{ cliente.estado }}
+                      </span>
+                  </td>
+                  <td class="text-center">
+                    <button class="btn btn-sm btn-warning mr-1"
+                            (click)="editarCliente(cliente.id_cliente)">
+                      <i class="fas fa-edit"></i>
+                    </button>
+                    <button class="btn btn-sm btn-danger"
+                            (click)="eliminarCliente(cliente.id_cliente)">
+                      <i class="fas fa-trash-alt"></i>
+                    </button>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <nav class="mt-3">
+              <ul class="pagination justify-content-center">
+                <li class="page-item" [class.disabled]="paginaActual === 1">
+                  <button class="page-link" (click)="cambiarPagina(paginaActual - 1)">Anterior</button>
+                </li>
+                <li class="page-item"
+                    *ngFor="let p of [].constructor(totalPaginas()); let i = index"
+                    [class.active]="paginaActual === i + 1">
+                  <button class="page-link" (click)="cambiarPagina(i + 1)">{{ i + 1 }}</button>
+                </li>
+                <li class="page-item" [class.disabled]="paginaActual === totalPaginas()">
+                  <button class="page-link" (click)="cambiarPagina(paginaActual + 1)">Siguiente</button>
+                </li>
+              </ul>
+            </nav>
+          </div>
+
+          <div *ngIf="!cargando() && !error() && buscarClientes().length === 0" class="alert alert-info text-center">
+            No se encontraron clientes.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

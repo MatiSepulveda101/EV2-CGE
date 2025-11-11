@@ -1,0 +1,51 @@
+<div class="container mt-3">
+  <div class="card card-outline card-primary">
+    <div class="card-header d-flex justify-content-between align-items-center">
+      <h3 class="card-title"><i class="fas fa-tachometer-alt"></i> Listado de Medidores</h3>
+      <button class="btn btn-primary btn-sm" (click)="nuevoMedidor()">
+        <i class="fas fa-plus"></i> Nuevo Medidor
+      </button>
+    </div>
+
+    <div class="card-body">
+      <div *ngIf="cargando" class="text-center">Cargando medidores...</div>
+      <div *ngIf="errorMsg" class="alert alert-danger text-center">{{ errorMsg }}</div>
+
+      <table *ngIf="!cargando && !errorMsg" class="table table-responsive table-hover table-striped">
+        <thead class="thead-dark">
+        <tr>
+          <th>ID</th>
+          <th>Código</th>
+          <th>Cliente</th>
+          <th>Dirección</th>
+          <th>Estado</th>
+          <th>Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let medidor of medidores">
+          <td>{{ medidor.id_medidor }}</td>
+          <td>{{ medidor.codigo_medidor }}</td>
+          <td>{{ medidor.nombre_cliente }}</td>
+          <td>{{ medidor.direccion_suministro }}</td>
+          <td>
+              <span class="badge"
+                    [class.badge-success]="medidor.estado === 'activo'"
+                    [class.badge-secondary]="medidor.estado === 'inactivo'">
+                {{ medidor.estado }}
+              </span>
+          </td>
+          <td class="text-center">
+            <button class="btn btn-sm btn-warning mr-1" (click)="editarMedidor(medidor.id_medidor)">
+              <i class="fas fa-edit"></i>
+            </button>
+            <button class="btn btn-sm btn-danger" (click)="eliminarMedidor(medidor.id_medidor)">
+              <i class="fas fa-trash-alt"></i>
+            </button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
